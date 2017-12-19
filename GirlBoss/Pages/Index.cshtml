@@ -1,0 +1,45 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<form method="POST">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>firstName</th>
+                <th>lastName</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+           @foreach (var customer in Model.Customers)
+           {
+            <tr>
+                <td> @customer.Id</td>
+                <td>@customer.firstName</td>
+                <td>@customer.lastName</td>
+                <td>@customer.Email</td>
+                <td>
+                    <a asp-page ="./Edit" asp-route-id ="@customer.Id">edit</a>
+                    <button type ="submit" asp-page-handler ="delete" 
+                            asp-route-id ="@customer.Id">Delete</button> 
+
+                </td>
+            </tr>
+
+           }
+            
+        </tbody>
+    </table>
+    <a asp-page="./Create">Create</a>
+
+
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+}
